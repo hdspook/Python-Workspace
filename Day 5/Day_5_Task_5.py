@@ -1,11 +1,16 @@
-#Summing Values using multiple arguments
+#PPRINT
 
-def addition(*args):
-    result = 0
+from pprint import pprint
 
-    for x in args:
-        result += x
-
-    return result
-
-print(addition(2,3,4,5))
+data = [ { 'a':'A',
+               'b':'B',
+               'c':'C',
+               'd':'D',
+               'e':'E',
+               'f':'F',
+               'g':'G',
+               'h':'H',
+               }
+         ]
+pprint(data)
+print(data)
