@@ -1,7 +1,16 @@
-#Squares using Dictionary comprehension
+#Writing and Reading a csv file
 
-numbers = [1,2,3,4,5,6,7]
+import csv
 
-square_dict = {num:num*num for num in numbers}
+with open('participants.csv','w') as participants_file:
+    file_writer = csv.writer(participants_file, delimiter=',')
 
-print(square_dict)
+    file_writer.writerow(['Himanshu Dubey', '10 years of experience'])
+    file_writer.writerow(['John', '11 years of experience'])
+
+
+with open('participants.csv','r') as participants_file:
+    file_reader = csv.reader(participants_file, delimiter=',')
+
+    for row in file_reader:
+        print(row)

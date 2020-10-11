@@ -1,11 +1,8 @@
-#Summing Values using multiple arguments
+#Traversing the current directory
 
-def addition(*args):
-    result = 0
+import os
 
-    for x in args:
-        result += x
-
-    return result
-
-print(addition(2,3,4,5))
+for _,_,files in os.walk("."):
+    for x in files:
+        if x.endswith("py"):
+            print(x)

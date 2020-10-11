@@ -1,11 +1,7 @@
-#Summing Values using multiple arguments
+#Comand Line Arguments
 
-def addition(*args):
-    result = 0
+import sys
 
-    for x in args:
-        result += x
+print(f"Total Number Of Arguments Are {len(sys.argv)-1}")
+print(f"Arguments Are {sys.argv}")
 
-    return result
-
-print(addition(2,3,4,5))
