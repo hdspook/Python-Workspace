@@ -1,11 +1,14 @@
-#Printing Multiples Of 3 Using Range
+#Use Of Requests
+import requests
+import re
 
-def multiples(number, limit):
-    if limit < number:
-        print ("Enter Valid limit")
-        return
+def title(html):
+    pattern = r"<title>.*</title>"
+    title = re.findall(pattern,html)
+    return(title[0][7:-8])
 
-    for x in range(number,limit+1,number):
-        print(x)
+#Fetching the page
+x = requests.get("https://www.srmist.edu.in/")
+html = x.text
 
-multiples(3, 33)
+print(title(html))
