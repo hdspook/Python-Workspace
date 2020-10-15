@@ -1,9 +1,12 @@
+import os
 from flask import Flask 
 from flask_restful import reqparse, Resource, Api
 from flask_sqlalchemy import SQLAlchemy
 #from entity.patients import Patients,db
 from utility.file_check import fileIsPresent
 from utility.read_file import readFile
+from handlers.converter_handler import convert_data_xlsx, docx_to_pdf, xlsx_to_pdf
+from handlers.merge_handler import merge_pdfs
 
 #Initializing the app
 app = Flask(__name__)
@@ -36,7 +39,7 @@ class RetrieveAndSave(Resource):
 
     def post(self):
         args = parser.parse_args()
-        file_name = args['file']
+        file_name = os.path.abspath(args['file'])
         #Search for file
         app.logger.info("Searching For File")
         if fileIsPresent(file_name):
@@ -46,18 +49,61 @@ class RetrieveAndSave(Resource):
             details = Patients(id=int(line[0]), name=line[1], email=line[2])
             db.session.add(details)
             db.session.commit()
+            app.logger.info(Patients.query.all())
             #Convert the data to xlsx
-            
+            convert_data_xlsx(file_name)
             return "successful()"
         
         else:
             app.logger.info("File Not Present")
             return "unsuccessful()"
 
+#Endpoint to convert various documents formats to pdf
+class Converter(Resource):
+
+    def post(self):
+        args = parser.parse_args()
+        file_name = os.path.abspath(args['file'])
+        app.logger.info(file_name)
+        #Search for file
+        app.logger.info("Searching For File")
+        if fileIsPresent(file_name):
+            #Check for file format(.docx, .xlsx)
+            if file_name.endswith(".docx"):
+                docx_to_pdf(file_name)
+
+            elif file_name.endswith(".xlsx"):
+                xlsx_to_pdf(file_name)
+
+            else:
+                app.logger.info("File Format Not Applicable")
+                return "unsuccessful()"
+        
+        else:
+            app.logger.info("File Not Present In Current Path")
+            return "unsuccessful()"
+        
+        return" successful()"
+
+#Endpoint to merge multiple pdf files
+class Merger(Resource):
+
+    def post(self):
+        args = parser.parse_args()
+        file_list_received = args['file'].split(",")
+        updated_file_list = [os.path.abspath(file.strip()) for file in file_list_received]
+        app.logger.info(updated_file_list)
+        #Call Merge Function
+        merge_pdfs(updated_file_list)
+        return "successful()"
+
+
 ##
 ## Actually setup the Api resource routing here
 ##
 api.add_resource(RetrieveAndSave, '/retrieve')
+api.add_resource(Converter, '/convert')
+api.add_resource(Merger, '/merge')
 
 #Driver
 if __name__ == "__main__":
