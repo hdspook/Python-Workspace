@@ -99,7 +99,7 @@ class Merger(Resource):
 
 
 ##
-## Actually setup the Api resource routing here
+## Actual setup the Api resource routing here
 ##
 api.add_resource(RetrieveAndSave, '/retrieve')
 api.add_resource(Converter, '/convert')
