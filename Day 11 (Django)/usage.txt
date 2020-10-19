@@ -30,4 +30,10 @@ t = Teams(team_name="Avengers", formed_on=timezone.now())
 t.save()
 
 t.developers_set.all()
-t.developers_set.create(dev_name='Himanshu', votes=1)
+t.developers_set.create(dev_name='Himanshu', experience=1)
+
+###################
+
+python manage.py createsuperuser
+
+python manage.py runserver
