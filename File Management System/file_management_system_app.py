@@ -35,6 +35,11 @@ class Patients(db.Model):
 
 
 #Endpoint to retrieve file data from server and save to database
+'''
+    Accepts a file name as post requests
+    url = "http://127.0.0.1:5000/retrieve" 
+    x = requests.post(url, data = {'file' : 'test.txt'})
+'''
 class RetrieveAndSave(Resource):
 
     def post(self):
@@ -59,6 +64,11 @@ class RetrieveAndSave(Resource):
             return "unsuccessful()"
 
 #Endpoint to convert various documents formats to pdf
+'''
+    Accepts a file name as post requests
+    url = "http://127.0.0.1:5000/convert" 
+    x = requests.post(url, data = {'file' : 'test.txt'})
+'''
 class Converter(Resource):
 
     def post(self):
@@ -86,6 +96,11 @@ class Converter(Resource):
         return" successful()"
 
 #Endpoint to merge multiple pdf files
+'''
+    Accepts a list of pdfs as post requests
+    url = "http://127.0.0.1:5000/merge" 
+    x = requests.post(url, data = {'file' : 'Dummy.pdf,b_2.pdf'})
+'''
 class Merger(Resource):
 
     def post(self):
