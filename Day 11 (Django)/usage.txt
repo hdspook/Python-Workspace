@@ -1,0 +1,33 @@
+pipenv install django
+
+pipenv lock --clear
+
+###
+
+django-admin startproject myteams
+python manage.py startapp teams
+
+python manage.py runserver
+
+python manage.py migrate
+
+python manage.py makemigrations teams
+
+python manage.py sqlmigrate teams 0001
+
+python manage.py migrate
+
+python manage.py shell
+
+
+##############
+
+from teams.models import Teams, Developers
+from django.utils import timezone
+
+Teams.objects.all()
+t = Teams(team_name="Avengers", formed_on=timezone.now())
+t.save()
+
+t.developers_set.all()
+t.developers_set.create(dev_name='Himanshu', votes=1)
