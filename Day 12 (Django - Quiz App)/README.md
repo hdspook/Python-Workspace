@@ -30,3 +30,9 @@ q.save()
 
 q.choice_set.create(choice_text='5', marked = 'NO', answer = 'NO')
 q.choice_set.create(choice_text='3', marked = 'NO', answer = 'YES')
+
+
+######
+python manage.py createsuperuser
+######
+
