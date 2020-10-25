@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'merger.apps.MergerConfig',
+    'converter.apps.ConverterConfig',
     'rest_framework',
 ]
 
