@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'merger.apps.MergerConfig',
     'converter.apps.ConverterConfig',
+    'retriever.apps.RetrieverConfig',
+    'splitter.apps.SplitterConfig',
     'rest_framework',
 ]
 
