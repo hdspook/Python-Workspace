@@ -10,6 +10,7 @@ django = "*"
 psycopg2 = "*"
 djangorestframework = "*"
 pypdf2 = "*"
+python-docx = "*"
 
 [requires]
 python_version = "3.8"

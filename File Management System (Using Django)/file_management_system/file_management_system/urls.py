@@ -20,5 +20,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('merger.urls')),
     path('', include('converter.urls')),
-    path('', include('retriever.urls'))
+    path('', include('retriever.urls')),
+    path('', include('splitter.urls')),
 ]
