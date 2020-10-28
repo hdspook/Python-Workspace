@@ -1,5 +1,5 @@
 from rest_framework import status
-from .serializers import ConvertSerializer
+from .serializers import ConvertSerializer, StatusSerializer
 from .models import Convert
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -17,7 +17,7 @@ class ConvertAndSave(APIView):
     def get(self,request):
         #query db and return object
         query_file_set = Convert.objects.all()
-        serializer = ConvertSerializer(query_file_set, many=True, context={'request':request})
+        serializer = StatusSerializer(query_file_set, many=True, context={'request':request})
         return Response(serializer.data)
 
     def post(self, request, format=None):
@@ -26,9 +26,18 @@ class ConvertAndSave(APIView):
             #get file url to convert
             file_url = file_url_list(serializer.validated_data.get('file_name'))
             #call the helper function to convert
-            start_converting(file_url[0], serializer.validated_data.get('output_file_name'))
+            file_info = start_converting(file_url[0])
+            if file_info is not None:
+                query_file_set = Convert.objects.create(file_name = serializer.validated_data.get('file_name')
+                                                        , output_file_name = file_info[0]
+                                                        , output_file_path = file_info[1]
+                                                        , convert_status = file_info[2])
+            else:
+                raise TypeError
+            
             #save the results
-            serializer.save()
+            #serializer.save()
+            serializer = StatusSerializer(query_file_set)
             #return response
-            return Response("File Successfully Converted", status=status.HTTP_201_CREATED)
+            return Response(serializer.data , status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
