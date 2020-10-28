@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'converter.apps.ConverterConfig',
     'retriever.apps.RetrieverConfig',
     'splitter.apps.SplitterConfig',
+    'rest_framework_swagger',
     'rest_framework',
 ]
 

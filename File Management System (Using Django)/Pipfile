@@ -11,6 +11,8 @@ psycopg2 = "*"
 djangorestframework = "*"
 pypdf2 = "*"
 python-docx = "*"
+install = "*"
+django-rest-swagger = "*"
 
 [requires]
 python_version = "3.8"
